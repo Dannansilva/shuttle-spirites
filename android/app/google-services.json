@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "249747045953",
+    "project_id": "shuttle-spirit-23974",
+    "storage_bucket": "shuttle-spirit-23974.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249747045953:android:c05b73f2ef4367f1a010c0",
+        "android_client_info": {
+          "package_name": "com.example.shuttle_spirites"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0ID0alZN8dwRqrDk6ep3T5qQEaB6oi5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

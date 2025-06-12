@@ -41,48 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB4AqhWQjr-RUI0t6WkPAFZkOhdbqYD3C0',
-    appId: '1:861704699683:web:3730438ff93e52902bd696',
-    messagingSenderId: '861704699683',
-    projectId: 'shuttle-spirit',
-    authDomain: 'shuttle-spirit.firebaseapp.com',
-    storageBucket: 'shuttle-spirit.firebasestorage.app',
-    measurementId: 'G-ZYNMBDJKP3',
+    apiKey: 'AIzaSyAoPQJSLVJ3Psx7xwwYL4dDBgD_f8r9FMw',
+    appId: '1:249747045953:web:c8277e600e8967eda010c0',
+    messagingSenderId: '249747045953',
+    projectId: 'shuttle-spirit-23974',
+    authDomain: 'shuttle-spirit-23974.firebaseapp.com',
+    storageBucket: 'shuttle-spirit-23974.firebasestorage.app',
+    measurementId: 'G-58TNSVJC70',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDGa_--fx6x5LryYOMUc-JzO6gbNFZEl1Y',
-    appId: '1:861704699683:android:0f09ce09a3f132132bd696',
-    messagingSenderId: '861704699683',
-    projectId: 'shuttle-spirit',
-    storageBucket: 'shuttle-spirit.firebasestorage.app',
+    apiKey: 'AIzaSyB0ID0alZN8dwRqrDk6ep3T5qQEaB6oi5Q',
+    appId: '1:249747045953:android:c05b73f2ef4367f1a010c0',
+    messagingSenderId: '249747045953',
+    projectId: 'shuttle-spirit-23974',
+    storageBucket: 'shuttle-spirit-23974.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDEHAJGWOFyNr2KqdZhJW-MrUApxp0YBlk',
-    appId: '1:861704699683:ios:78605a327cc5ae3a2bd696',
-    messagingSenderId: '861704699683',
-    projectId: 'shuttle-spirit',
-    storageBucket: 'shuttle-spirit.firebasestorage.app',
+    apiKey: 'AIzaSyAeuP6hfFRkrakR4CQjzLaTwb17-txTv2s',
+    appId: '1:249747045953:ios:2255a73b89ba2ed7a010c0',
+    messagingSenderId: '249747045953',
+    projectId: 'shuttle-spirit-23974',
+    storageBucket: 'shuttle-spirit-23974.firebasestorage.app',
     iosBundleId: 'com.example.shuttleSpirites',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDEHAJGWOFyNr2KqdZhJW-MrUApxp0YBlk',
-    appId: '1:861704699683:ios:78605a327cc5ae3a2bd696',
-    messagingSenderId: '861704699683',
-    projectId: 'shuttle-spirit',
-    storageBucket: 'shuttle-spirit.firebasestorage.app',
+    apiKey: 'AIzaSyAeuP6hfFRkrakR4CQjzLaTwb17-txTv2s',
+    appId: '1:249747045953:ios:2255a73b89ba2ed7a010c0',
+    messagingSenderId: '249747045953',
+    projectId: 'shuttle-spirit-23974',
+    storageBucket: 'shuttle-spirit-23974.firebasestorage.app',
     iosBundleId: 'com.example.shuttleSpirites',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyB4AqhWQjr-RUI0t6WkPAFZkOhdbqYD3C0',
-    appId: '1:861704699683:web:e24d64c3231b83a02bd696',
-    messagingSenderId: '861704699683',
-    projectId: 'shuttle-spirit',
-    authDomain: 'shuttle-spirit.firebaseapp.com',
-    storageBucket: 'shuttle-spirit.firebasestorage.app',
-    measurementId: 'G-R8GE61Y5NV',
+    apiKey: 'AIzaSyAoPQJSLVJ3Psx7xwwYL4dDBgD_f8r9FMw',
+    appId: '1:249747045953:web:9ce3300c4f9aff37a010c0',
+    messagingSenderId: '249747045953',
+    projectId: 'shuttle-spirit-23974',
+    authDomain: 'shuttle-spirit-23974.firebaseapp.com',
+    storageBucket: 'shuttle-spirit-23974.firebasestorage.app',
+    measurementId: 'G-C72Q1JKR75',
   );
 }
