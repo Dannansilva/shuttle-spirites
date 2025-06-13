@@ -31,10 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
         print('Google Sign-In successful: ${result.user!.displayName}');
 
         // Navigate to home screen
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => HomeScreen()),
-        // );
+        Navigator.pushNamed(context, '/home');
 
         // For now, show success message
         ScaffoldMessenger.of(context).showSnackBar(
@@ -86,10 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
         print('Email Sign-In successful: ${result.user!.email}');
 
         // Navigate to home screen
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => HomeScreen()),
-        // );
+        Navigator.pushNamed(context, '/home');
 
         // For now, show success message
         ScaffoldMessenger.of(context).showSnackBar(

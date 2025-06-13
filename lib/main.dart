@@ -1,6 +1,8 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shuttle_spirites/screens/Home_screen.dart';
+import 'package:shuttle_spirites/screens/signup_screen.dart';
 import 'firebase_options.dart';
 import 'screens/Login_screen.dart';
 
@@ -99,6 +101,11 @@ class MyApp extends StatelessWidget {
         },
       ),
       debugShowCheckedModeBanner: false,
+      routes: {
+        '/login': (context) => LoginScreen(),
+        '/home': (context) => HomeScreen(),
+        '/signup': (context) => SignupScreen(),
+      },
     );
   }
 }
