@@ -1,20 +1,8 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Shuttle Sprites',
-      theme: ThemeData(primarySwatch: Colors.purple),
-      home: LoginScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
+import 'package:firebase_auth/firebase_auth.dart';
+import '../services/auth_service.dart';
+// Import your home screen here
+// import 'package:shuttle_spirites/screens/Home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -24,8 +12,101 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
   bool _rememberMe = false;
   bool _obscurePassword = true;
+  bool _isLoading = false;
+
+  // Handle Google Sign In
+  Future<void> _handleGoogleSignIn() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final UserCredential? result = await _authService.signInWithGoogle();
+
+      if (result != null && result.user != null) {
+        // Successfully signed in
+        print('Google Sign-In successful: ${result.user!.displayName}');
+
+        // Navigate to home screen
+        Navigator.pushNamed(context, '/home');
+
+        // For now, show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Welcome ${result.user!.displayName ?? 'User'}!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle errors
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to sign in with Google: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  // Handle Email/Password Sign In
+  Future<void> _handleEmailSignIn() async {
+    if (_usernameController.text.isEmpty || _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please enter both email and password'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final UserCredential? result = await _authService.signInWithEmailPassword(
+        _usernameController.text.trim(),
+        _passwordController.text.trim(),
+      );
+
+      if (result != null && result.user != null) {
+        // Successfully signed in
+        print('Email Sign-In successful: ${result.user!.email}');
+
+        // Navigate to home screen
+        Navigator.pushNamed(context, '/home');
+
+        // For now, show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Welcome ${result.user!.email ?? 'User'}!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle errors
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to sign in: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             // Username Field
                             Text(
-                              'Username *',
+                              'Email *',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.white,
@@ -205,9 +286,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               child: TextField(
                                 controller: _usernameController,
+                                keyboardType: TextInputType.emailAddress,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
-                                  hintText: 'Username',
+                                  hintText: 'Email',
                                   hintStyle: TextStyle(
                                     color: Colors.black,
                                     fontSize: 15,
@@ -292,7 +374,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _obscurePassword
                                           ? Icons.visibility_off_outlined
                                           : Icons.visibility_outlined,
-                                      color: Colors.white,
+                                      color: Colors.grey[600],
                                       size: 20,
                                     ),
                                     onPressed: () {
@@ -382,16 +464,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ],
                               ),
                               child: ElevatedButton(
-                                onPressed: () {
-                                  // Handle login logic here
-                                  print(
-                                    'Username: ${_usernameController.text}',
-                                  );
-                                  print(
-                                    'Password: ${_passwordController.text}',
-                                  );
-                                  print('Remember Me: $_rememberMe');
-                                },
+                                onPressed:
+                                    _isLoading ? null : _handleEmailSignIn,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white.withOpacity(
                                     0.3,
@@ -405,21 +479,33 @@ class _LoginScreenState extends State<LoginScreen> {
                                     width: 1,
                                   ),
                                 ),
-                                child: Text(
-                                  'Log In',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                    shadows: [
-                                      Shadow(
-                                        color: Colors.black.withOpacity(0.3),
-                                        blurRadius: 2,
-                                        offset: Offset(0, 1),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                child:
+                                    _isLoading
+                                        ? SizedBox(
+                                          height: 20,
+                                          width: 20,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                            strokeWidth: 2,
+                                          ),
+                                        )
+                                        : Text(
+                                          'Log In',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.black.withOpacity(
+                                                  0.3,
+                                                ),
+                                                blurRadius: 2,
+                                                offset: Offset(0, 1),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                               ),
                             ),
                             SizedBox(height: 24),
@@ -447,9 +533,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                   ),
-                                  onTap: () {
-                                    print('Google login pressed');
-                                  },
+                                  onTap:
+                                      _isLoading ? null : _handleGoogleSignIn,
                                 ),
                                 SizedBox(width: 16),
                                 _buildSocialButton(
@@ -460,6 +545,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   onTap: () {
                                     print('Apple login pressed');
+                                    // Implement Apple Sign In later
                                   },
                                 ),
                               ],
@@ -488,6 +574,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   GestureDetector(
                                     onTap: () {
                                       print('Create account pressed');
+                                      // Navigate to registration screen
                                     },
                                     child: Text(
                                       'Create an account Here',
@@ -520,6 +607,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
+
+            // Loading overlay
+            if (_isLoading)
+              Container(
+                color: Colors.black.withOpacity(0.3),
+                child: Center(
+                  child: CircularProgressIndicator(color: Colors.white),
+                ),
+              ),
           ],
         ),
       ),
@@ -528,7 +624,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSocialButton({
     required Widget child,
-    required VoidCallback onTap,
+    required VoidCallback? onTap,
   }) {
     return GestureDetector(
       onTap: onTap,
@@ -536,7 +632,7 @@ class _LoginScreenState extends State<LoginScreen> {
         width: 36,
         height: 36,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.2),
+          color: Colors.white.withOpacity(onTap != null ? 0.2 : 0.1),
           shape: BoxShape.circle,
           border: Border.all(color: Colors.white.withOpacity(0.3), width: 1),
           boxShadow: [
