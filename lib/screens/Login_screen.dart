@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
-// Import your home screen here
-// import 'package:shuttle_spirites/screens/Home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
